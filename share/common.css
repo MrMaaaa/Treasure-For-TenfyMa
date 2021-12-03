@@ -1,0 +1,42 @@
+.scroll-view {
+  max-width: 100%;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  counter-reset: idx;
+}
+.scroll-view::-webkit-scrollbar {
+  display: none;
+}
+.scroll-view-item {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  height: 100%;
+  padding: 15px;
+  scroll-snap-align: center;
+}
+.scroll-view-item.align-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.clr::before {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clr::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.p {
+  padding: 10px 0;
+}
+a {
+  color: dodgerblue;
+}

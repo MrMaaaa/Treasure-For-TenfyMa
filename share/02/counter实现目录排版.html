@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>counter实现目录排版</title>
+  <style>
+    body {
+      --split: ' - ';
+      --splitafter: ' . ';
+      --splitstyle: decimal;
+      --styledefaultvalue: 0;
+      --stylestep: 1;
+      margin: 15px;
+      font-size: 20px;
+    }
+
+    .menu-item {
+      line-height: 30px;
+    }
+
+    .menu-list {
+      counter-reset: count var(--styledefaultvalue);
+      padding: 0 0 0 20px;
+    }
+
+    .menu-item::before {
+      content: counters(count, var(--split), var(--splitstyle)) var(--splitafter);
+      counter-increment: count var(--stylestep);
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>兼容性：IE-8及以上</div>
+    <label for="input_sign">修改分隔符 <input type="text" placeholder="请输入" id="input_sign" value="😁" /></label>
+    <button onclick="toggleSign(` ${document.getElementById('input_sign').value} `)">
+      应用
+    </button>
+    <br />
+    <label for="input_sign_after">修改后缀符 <input type="text" placeholder="请输入" id="input_sign_after" value="😭" /></label>
+    <button onclick="toggleSign(` ${document.getElementById('input_sign_after').value} `, '--splitafter')">
+      应用
+    </button>
+    <br />
+    <label for="input_sign_step">修改步长 <input type="text" placeholder="请输入" id="input_sign_step" value="1" /></label>
+    <button onclick="toggleSign(`${document.getElementById('input_sign_step').value}`, '--stylestep', false)">
+      应用
+    </button>
+    <br />
+    <label for="input_sign_default_value">修改初始值 <input type="text" placeholder="请输入" id="input_sign_default_value" value="0" /></label>
+    <button onclick="toggleSign(`${document.getElementById('input_sign_default_value').value}`, '--styledefaultvalue', false)">
+      应用
+    </button>
+    <br />
+    <label for="split_style">修改展示样式 <select id="split_style" onchange="toggleSign(this.value, '--splitstyle', false)">
+        <option value="disc">实心圆点</option>
+        <option value="circle">空心圆点</option>
+        <option value="square">实心方块</option>
+        <option value="decimal" selected>十进制阿拉伯数字</option>
+        <option value="cjk-decimal">中日韩十进制数</option>
+        <option value="trad-chinese-formal">汉字大写</option>
+        <option value="decimal-leading-zero">自动补0</option>
+        <option value="lower-roman">小写罗马数字</option>
+        <option value="upper-roman">大写罗马数字</option>
+        <option value="lower-greek">小写希腊数字</option>
+        <option value="lower-latin">拉丁文</option>
+      </select> 枚举来自 <a target="_blank"
+        href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/list-style-type">list-style-type - CSS（层叠样式表） |
+        MDN</a></label>
+  </div>
+  <div class="menu-list">
+    <div class="menu-item">
+      <div class="menu-list">
+        <div class="menu-item">
+          <div class="menu-list">
+            <div class="menu-item"></div>
+            <div class="menu-item"></div>
+            <div class="menu-item"></div>
+          </div>
+        </div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-list">
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-list">
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+        <div class="menu-item"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const toggleSign = (sign, propertyName = '--split', needQuotation = true) => {
+      document.body.style.setProperty(propertyName, needQuotation ? `"${sign}"` : sign);
+    };
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../common.css" />
+  <link rel="stylesheet" href="../reset.css" />
+  <title>分享</title>
+</head>
+
+<body>
+  <div class="scroll-view">
+    <div class="scroll-view-item align-center">
+      <h1>首先是关于一些提案</h1>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>
+        1.
+        <a rel="noreferrer" target="_blank"
+          href="https://github.com/tc39/proposal-string-replaceall">String.prototype.replaceAll(searchValue,
+          replaceValue)</a>
+      </h1>
+      <q>终于支持了</q>
+      <pre>
+          <code class="language-js">
+  比如: 将queryString的 + 转为 空格
+  const queryString = 'q=query+string+parameters'
+
+  在之前只能使用
+  queryString.replace(/\+/g, ' ')
+
+  或者结合split和join
+  queryString.split('+').join(' ')
+
+  现在可以直接使用
+  queryString.replaceAll('+', ' ')
+          </code>
+        </pre>
+      <div>
+        <h4>注意：</h4>
+        <ul>
+          <li>
+            如果searchValue是一个非全局正则表达式，则直接抛出错误(为了避免正则的没有g符号的<b><q>不要全局替换</q>语义</b>和replaceAll名字的<b><q>进行全局替换</q></b>语义发生混淆)
+          </li>
+          <li>如果searchValue是一个全局正则表达式，则表现与replace一致</li>
+        </ul>
+      </div>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>
+        2.<a rel="noreferrer" target="_blank" href="https://github.com/tc39/proposal-numeric-separator">Numeric
+          Separators</a>
+      </h1>
+      <q>再也不用担心数错0了</q>
+      <pre>
+        <code class="language-js">
+    该提案允许给 number 类型的值增加 _ 分隔符以增强可读性
+    const num = 1_0000_0000 // 100000000
+    const num = 1_0000_0000.01 // 100000000.01
+        </code>
+      </pre>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>
+        3.<a rel="noreferrer" target="_blank" href="https://github.com/tc39/proposal-relative-indexing-method">.at()</a>
+      </h1>
+      <q>这不是强行增加api，代码也需要优雅</q>
+      <pre>
+        <code class="language-js">
+    在以前
+    对于一个数组
+    const array = [1, 2, 3, 4, 5]
+
+    取数组最后一个值
+
+    通常使用
+    array[array.length - 1]
+    或者
+    array.slice(-1)[0]
+
+    现在
+    array.at(-1)
+
+    Coooool
+        </code>
+      </pre>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>
+        4.<a rel="noreferrer" target="_blank"
+          href="https://github.com/tc39/proposal-accessible-object-hasownproperty">Object.hasOwn()</a>
+      </h1>
+      <q>支持原型方法静态化</q>
+      <pre>
+        <code class="language-js">
+    old
+    let hasOwnProperty = Object.prototype.hasOwnProperty
+
+    if (hasOwnProperty.call(object, "foo")) {
+      console.log("has property foo")
+    }
+
+    now
+    if (Object.hasOwn(object, "foo")) {
+      console.log("has property foo")
+    }
+        </code>
+      </pre>
+      <h4>为什么要出现这个api</h4>
+      <ul>
+        <li>
+          使用了Object.create(null)创建的对象调用hasOwnProperty会直接报错
+        </li>
+        <li>如果对象重写了hasOwnProperty方法，将出现不可预测的问题</li>
+        <li>将hasOwn作为静态方法可以有效避免上述问题</li>
+      </ul>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>
+        5.<a rel="noreferrer" target="_blank" href="https://github.com/tc39/proposal-slice-notation">Slice notation</a>
+      </h1>
+      <q>这更符合人体工程学</q>
+      <pre>
+        <code class="language-js">
+    const arr = ['a', 'b', 'c', 'd'];
+
+    arr[1:3]; // → ['b', 'c'] 左闭右开
+
+    等价于
+    arr.slice(1, 3); // → ['b', 'c']
+
+    默认值
+    arr[:3]; // → ['a', 'b', 'c']
+
+    arr[1:]; // → ['b', 'c', 'd']
+
+    arr[:]; // → ['a', 'b', 'c', 'd']
+
+        </code>
+      </pre>
+      <p>warnning: 不适用于对字符串进行操作，因为<a rel="noreferrer" target="_blank"
+          href="https://mathiasbynens.be/notes/javascript-unicode">JavaScript 有一个 Unicode 问题</a></p>
+    </div>
+    <div class="scroll-view-item align-center">
+      <pre>
+        <code class="language-js">
+    start index 取值逻辑
+    start = max(lowerBound + len, 0)
+
+    例子
+    const arr = ['a', 'b', 'c', 'd'];
+    此时的start = max((-2 + 4), 0) = max(2, 0) = 2
+    arr[-2:]; // → ['c', 'd']
+
+    arr[-10:]; // → ['a', 'b', 'c', 'd']
+    此时的start = max((-10 + 4), 0) = max(-6, 0) = 0
+
+    end index 取值逻辑
+    end = max(upperBound + len, 0)
+
+    arr[:-2]; // → ['a', 'b']
+    arr[:-10]; // → []
+
+
+    关于越界索引
+
+    下限和上限均以对象的长度为上限。
+    语义与现有slice操作的行为完全匹配。
+    const arr = [ 'a', 'b', 'c', 'd'];
+
+    arr [100:]; // → [] 
+
+    arr [:100]; // → ['a', 'b', 'c', 'd']
+        </code>
+        </pre>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>还有一些有趣的提案这里没有提到，例如<br /><a rel="noreferrer" target="_blank"
+          href="https://github.com/tc39/proposal-bind-operator">绑定this语法</a>、<a rel="noreferrer" target="_blank"
+          href="https://github.com/tc39/proposal-binary-ast">增加AST二进制格式的js文件以加快解析速度</a>等<br />
+        感兴趣可自行去<a rel="noreferrer" target="_blank" href="https://github.com/tc39/proposals">ECMAScript proposals</a>进行查看
+      </h1>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>实现这样一个功能：</h1>
+      <h3>点击一个链接，如果这个链接浏览器已经打开过，则刷新已经打开的链接窗口；<br />如果这个链接没有打开过，则使用新窗口打开这个链接页面。</h3>
+      <br />
+      <p>效果如下</p>
+      <br />
+      <a href="./query.html?s=1" target="_search">跳转s=1</a>
+      <a href="./query.html?s=2" target="_search">跳转s=2</a>
+      <div>答案见控制台</div>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>用神秘的counter实现自动目录排版</h1>
+      <a target="_blank" href="./counter实现目录排版.html">点此体验</a>
+      <a target="_blank" href="https://www.zhangxinxu.com/wordpress/2014/08/css-counters-automatic-number-content/">点此查看使用教程</a>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>完</h1>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</body>
+
+</html>

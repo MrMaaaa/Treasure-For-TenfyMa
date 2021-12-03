@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>分享</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/monokai.min.css">
+    <link rel="stylesheet" href="../common.css" />
+    <link rel="stylesheet" href="../reset.css" />
+    <style>
+      body {
+        background: #ddd;
+      }
+      h1,h2,h3,h4,h5 {
+        padding: 15px 0;
+      }
+      /* 纯CSS实现的左滑菜单 */
+      :root {
+        --list-item-height: 50px;
+        --list-buttons-width: 8rem;
+      }
+      /* 列表仅水平滚动 */
+      .slide-list .list-item {
+        display: flex;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+      }
+      .slide-list .list-item:not(:first-child) {
+        border-top: 1px solid #ddd;
+      }
+      .slide-list .list-item::-webkit-scrollbar {
+        display: none;
+      }
+      /* 主内容宽度100%，白色背景覆盖 */
+      .slide-list .content {
+        flex: 0 0 100vw;
+        position: relative;
+        box-sizing: border-box;
+        height: var(--list-item-height);
+        line-height: var(--list-item-height);
+        padding: 0 20px;
+        background: #fff;
+        scroll-snap-align: start;
+      }
+      /* 空标签元素，作用是腾出水平滚动空间 */
+      /* 这里的宽度一定要等于 right-space 的宽度 */
+      .slide-list .space {
+        /* 这部分样式用来给space一个更高的层级以及一个半透明背景色便于观察 */
+        position: relative;
+        z-index: -1;
+        background: rgba(0, 0, 0, 0.2);
+        /*  */
+        flex: 0 0 var(--list-buttons-width);
+        scroll-snap-align: end;
+      }
+      /* 按钮绝对定位，藏在内容白色背景后面 */
+      .slide-list .right-space {
+        position: absolute;
+        right: 15px;
+        display: flex;
+      }
+      .slide-list .button {
+        width: calc(var(--list-buttons-width) / 2);
+        height: var(--list-item-height);
+        line-height: var(--list-item-height);
+        padding: 0;
+        border: 0;
+        color: #fff;
+      }
+      .slide-list .button-fol {
+        background: lightskyblue;
+      }
+      .slide-list .button-del {
+        background: lightcoral;
+      }
+    </style>
+    <style>
+      /* 文字环绕形状 */
+      .demo-2 .phone {
+        position: relative;
+        box-sizing: border-box;
+        width: 578px;
+        height: 284px;
+        padding: 10px;
+        background: url('./iphonex.png') 0 0 / 100% 100% no-repeat;
+        overflow-y: scroll;
+        overscroll-behavior: contain;
+      }
+      .demo-2 .shape {
+        float: left;
+        width: 20px;
+        height: 284px;
+        shape-outside: polygon(
+          0 0,
+          0 56px,
+          16px 58px,
+          20px 70px,
+          20px 190px,
+          16px 195px,
+          0 200px,
+          0 0
+        );
+      }
+      .demo-3 {
+        float: left;
+        position: relative;
+        width: 400px;
+        height: 200px;
+      }
+      .demo-3 .shape-l {
+        content: '';
+        float: left;
+        width: 50px;
+        height: 100%;
+        shape-outside: polygon(0 0, 50px 0, 0 200px);
+      }
+      .demo-3 .shape-r {
+        content: '';
+        float: right;
+        width: 50px;
+        height: 100%;
+        shape-outside: polygon(50px 0, 0 200px, 50px 200px);
+      }
+      .demo-3::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        width: 350px;
+        background: lightskyblue;
+        transform: skew(-14deg) translateX(20px);
+      }
+      .demo-4 {
+        float: left;
+        width: 300px;
+        height: 400px;
+        border-radius: 50%;
+        background: deepskyblue;
+        color: #fff;
+      }
+      .demo-4 .shape-l {
+        float: left;
+        width: 50%;
+        height: 100%;
+        shape-outside: radial-gradient(farthest-side ellipse at right, transparent 100%, red);
+      }
+      .demo-4 .shape-r {
+        float: right;
+        width: 50%;
+        height: 100%;
+        shape-outside: radial-gradient(farthest-side ellipse at left, transparent 100%, red);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-view">
+      <div class="scroll-view-item align-center">
+        <h1>React useState 探秘</h1>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h2>useState 的运行流程图</h2>
+        <img style="width: 50%;" src="./useState.webp">
+      </div>
+      <div class="scroll-view-item align-center">
+        <h3>useState 使用注意</h3>
+        <pre>
+          <code class="language-html">
+  // 如果useState传值为object，则若该引用不变，useState不会触发重新渲染
+  const Test = () => {
+    const data = {
+      a: 1
+    };
+  
+    const [value, setValue] = useState(data);
+  
+    return (
+      &lt;div
+        onClick={() => {
+          data.a = 2
+          setValue({ ...data }) // 1将变为2
+          // setValue(data) // 页面不会有任何变化
+        }}
+      &gt;
+        {value.a}
+      &lt;/div&gt;
+    );
+  };
+
+  // 数组同理
+  setList((ls) => {
+    const newList = [...ls]
+    newList[index].checked = !newList[index].checked
+    return newList
+  })
+          </code>
+        </pre>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>为了避免时间太短导致的尴尬</h1>
+        <h2>我准备了一些私货……</h2>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>你是否</h1>
+        <h2>遇到这样的需求？</h2>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>PM: 我想实现文本根据形状进行排列</h1>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>小意思！</h1>
+      </div>
+      <div class="scroll-view-item align-center">
+        <div class="demo-3 clr">
+          <p class="shape-l"></p>
+          <p class="shape-r"></p>
+          <p class="text">
+            这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字
+          </p>
+        </div>
+        <div class="demo-4">
+          <p class="shape-l"></p>
+          <p class="shape-r"></p>
+          <p class="text">
+            这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字这是一些不重要的文字
+          </p>
+        </div>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>Q: 我要实现文本环绕刘海屏！</h1>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>？？？</h1>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h2>事实上……</h2>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>没问题！</h1>
+      </div>
+      <div class="scroll-view-item align-center">
+        <div class="demo-2">
+          <div class="phone" id="demo2_box">
+            <i class="shape" id="demo2_shape"></i>
+            <div class="content" id="demo2_content">
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+              <p>这是一些不重要的文字这是一些不重要的文字</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>:)</h1>
+        <h2>Cooooooooooooooooool</h2>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h2>这里用到了一个比较新的css属性：shape-outside</h2>
+<pre>
+/* 关键字值 */
+shape-outside: none;
+shape-outside: margin-box;
+shape-outside: content-box;
+shape-outside: border-box;
+shape-outside: padding-box;
+
+/* 函数值 */
+shape-outside: circle();
+shape-outside: ellipse();
+shape-outside: inset(10px 10px 10px 10px);
+*shape-outside: polygon(10px 10px, 20px 20px, 30px 30px);
+
+/* &lt;url&gt; 值 */
+shape-outside: url(image.png);
+
+/* 渐变值 */
+shape-outside: linear-gradient(45deg, rgba(255, 255, 255, 0) 150px, red 150px);
+
+/* 全局值 */
+shape-outside: initial;
+shape-outside: inherit;
+shape-outside: unset;
+</pre>
+      </div>
+      <div class="scroll-view-item align-center">
+        <h1>End</h1>
+        <h2>有机会再分享其他的珍藏吧~</h2>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script>
+      const $d2_shape = document.querySelector('#demo2_shape');
+      const $demo2_box = document.querySelector('#demo2_box');
+      $d2_shape.style.height = $demo2_box.scrollHeight + 'px';
+      const funShape = function () {
+        const scrollTop = $demo2_box.scrollTop;
+        // 滚动偏移应用在shape-outside上
+        const shapeOutside =
+          'polygon(0 0, 0 ' +
+          (56 + scrollTop) +
+          'px, 16px ' +
+          (58 + scrollTop) +
+          'px, 20px ' +
+          (70 + scrollTop) +
+          'px, 20px ' +
+          (190 + scrollTop) +
+          'px, 16px ' +
+          (195 + scrollTop) +
+          'px, 0 ' +
+          (200 + scrollTop) +
+          'px, 0 0)';
+        $d2_shape.style.shapeOutside = shapeOutside;
+      };
+      $demo2_box.addEventListener('scroll', funShape);
+      funShape();
+    </script>
+  </body>
+</html>
