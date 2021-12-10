@@ -1,13 +1,16 @@
-const template = document.createElement('template');
+(() => {
+  const template = document.createElement('template');
 
-template.innerHTML = `
+  template.innerHTML = `
   <style>
     .box-wrapper {
       position: relative;
+      height: 100%;
       overflow: hidden;
       color: #fff;
       text-shadow: 0 1px 20px #000;
       font-size: 20px;
+      transform: translateX(30%);
     }
     .box {
       box-sizing: border-box;
@@ -35,7 +38,7 @@ template.innerHTML = `
     }
     .box-inline {
       display: inline-block;
-      transform: translate(-250px, -200px);
+      margin: -200px 0 0 -250px;
       background: lightsteelblue;
     }
     .box-zindex-0 {
@@ -71,13 +74,14 @@ template.innerHTML = `
   </div>
 `;
 
-class PosShower extends HTMLElement {
-  constructor() {
-    super();
+  class Template extends HTMLElement {
+    constructor() {
+      super();
 
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
+      this._shadowRoot = this.attachShadow({ mode: 'open' });
+      this._shadowRoot.appendChild(template.content.cloneNode(true));
+    }
   }
-}
 
-window.customElements.define('pos-shower', PosShower);
+  window.customElements.define('pos-shower', Template);
+})();
