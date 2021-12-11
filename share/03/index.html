@@ -8,6 +8,36 @@
   <link rel="stylesheet" href="../common.css" />
   <link rel="stylesheet" href="../reset.css" />
   <title>分享</title>
+  <style>
+    #current {
+      height: 40px;
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      font-size: 36px;
+      overflow: scroll;
+    }
+
+    #current::-webkit-scrollbar {
+      display: none;
+    }
+
+    #rect {
+      width: 6px;
+      height: 40px;
+      background: #000;
+      position: fixed;
+      top: 35px;
+      left: 80px;
+    }
+
+    #total {
+      position: fixed;
+      top: 30px;
+      left: 120px;
+      font-size: 36px;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,15 +46,61 @@
       <h1>首先是关于一个关于定位相关的示例</h1>
     </div>
     <div class="scroll-view-item align-center">
-      <pos-shower style="width: 100%;height: 100%;" />
+      <pos-shower style="width: 100%; height: 100%;" />
     </div>
     <div class="scroll-view-item align-center">
       <display-value />
     </div>
+    <div class="scroll-view-item align-center">
+      test
+    </div>
   </div>
+
+  <div id="current"></div>
+  <div id="rect"></div>
+  <div id="total"></div>
 
   <script src="./pos-shower.js"></script>
   <script src="./display-value.js"></script>
+  <script>
+    const $scrollTop = document.querySelector('.scroll-view')
+    const pageLen = document.querySelectorAll('.scroll-view > .scroll-view-item').length
+    const scrollHeight = $scrollTop.scrollHeight - document.body.scrollHeight
+    const $rect = document.querySelector('#rect')
+    const $current = document.querySelector('#current')
+    document.getElementById('total').innerText = pageLen
+
+    const init = () => {
+      $scrollTop.addEventListener('scroll', onScroll, false)
+      onScroll()
+      // 动态向#current dom中插入对应数量的页码元素
+      $current.innerHTML = new Array(pageLen).fill(null).map((e, i) => i + 1).reduce((prev, curr) => {
+        return `${prev}<div>${curr}</div>`
+      }, '')
+    }
+
+    const onScroll = () => {
+      const scrollTop = $scrollTop.scrollTop
+      // 计算滚动百分比
+      const bgper = $scrollTop.scrollTop / scrollHeight * 100
+
+      // 设置背景渐变
+      document.body.style.background = `linear-gradient(to right, #ddd, #ddd ${bgper}%, #fff ${bgper}%)` // 线性渐变
+      // document.body.style.background = `repeating-linear-gradient(45deg, #ddd, #fff ${bgper * 0.1 + 5}%)` // 方格逐渐变大效果
+      // document.body.style.background = `radial-gradient(circle at 100%, #ddd, #ddd ${bgper}%, #fff ${bgper}%)` // 圆形从右侧扩大
+      // $current.innerText = Math.floor(bgper / (101 / pageLen) + 1)
+
+      // 计算页码 dom 滚动距离
+      const per = $scrollTop.scrollTop / $scrollTop.scrollHeight * 100
+      $current.scrollTop = (per / 100 * 50 * pageLen).toFixed(0)
+
+      // 页码分隔符旋转角度
+      // #TODO 值存在问题
+      $rect.style.transform = `rotate(${(per * (36 / (pageLen)) + 25).toFixed(0)}deg)`
+    }
+
+    init()
+  </script>
 </body>
 
 </html>
