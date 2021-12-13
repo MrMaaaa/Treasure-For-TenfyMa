@@ -54,6 +54,12 @@
     <div class="scroll-view-item align-center">
       test
     </div>
+    <div class="scroll-view-item align-center">
+      test
+    </div>
+    <div class="scroll-view-item align-center">
+      test
+    </div>
   </div>
 
   <div id="current"></div>
@@ -95,8 +101,7 @@
       $current.scrollTop = (per / 100 * 50 * pageLen).toFixed(0)
 
       // 页码分隔符旋转角度
-      // #TODO 值存在问题
-      $rect.style.transform = `rotate(${(per * (36 / (pageLen)) + 25).toFixed(0)}deg)`
+      $rect.style.transform = `rotate(${(per / (100 / pageLen) * 180 + 25).toFixed(0)}deg)`
     }
 
     init()
