@@ -27,7 +27,7 @@
     }
 
     #rect {
-      width: 6px;
+      width: 4px;
       height: 40px;
       background: #000;
       position: fixed;

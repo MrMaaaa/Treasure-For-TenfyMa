@@ -1,0 +1,62 @@
+@property --colorAA {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: fuchsia;
+}
+
+@property --colorBB {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #f79188;
+}
+
+@property --colorCC {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: red;
+}
+
+@keyframes change {
+  20% {
+    --colorAA: red;
+    --colorBB: #a93ee0;
+    --colorCC: fuchsia;
+  }
+
+  40% {
+    --colorAA: #ff3c41;
+    --colorBB: #e228a0;
+    --colorCC: #2e4c96;
+  }
+
+  60% {
+    --colorAA: orange;
+    --colorBB: green;
+    --colorCC: teal;
+  }
+
+  80% {
+    --colorAA: #ae63e4;
+    --colorBB: #0ebeff;
+    --colorCC: #efc371;
+  }
+}
+
+.text-clip {
+  display: inline-block;
+  font-size: 80px;
+  line-height: 0.9;
+  padding: 20px;
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  background: radial-gradient(
+      circle farthest-corner at center center,
+      var(--colorAA),
+      var(--colorBB, var(--colorCC))
+    )
+    no-repeat;
+  animation: change 5s infinite;
+  transition: 1s --colorAA, 1s --colorBB, 1s --colorCC;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

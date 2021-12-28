@@ -14,7 +14,7 @@
     </div>
     <div class="scroll-view-item align-center">
       <h1>background-attachment</h1>
-      <iframe src="./overflow-shadow/overflow-shadow-example.html" style="width: 100%;height: 100%;border: 0;"></iframe>
+      <iframe src="./overflow-shadow/overflow-shadow-example.html" style="width: 100%;height: 400px;border: 0;"></iframe>
     </div>
   </div>
 `;
