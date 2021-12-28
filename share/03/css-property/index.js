@@ -27,7 +27,7 @@
       </pre>
     </div>
     <div class="scroll-view-item align-center">
-      <iframe src="./css-property.html" style="width: 100%;height: 600px;border: 0;" />
+      <iframe src="./css-property/css-property.html" style="width: 100%;height: 600px;border: 0;" />
     </div>
   </div>
 `;
