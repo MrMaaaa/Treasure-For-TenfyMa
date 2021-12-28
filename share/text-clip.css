@@ -1,44 +1,9 @@
-@property --colorAA {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: fuchsia;
-}
-
-@property --colorBB {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: #f79188;
-}
-
-@property --colorCC {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: red;
-}
-
-@keyframes change {
-  20% {
-    --colorAA: red;
-    --colorBB: #a93ee0;
-    --colorCC: fuchsia;
+@keyframes shine {
+  0% {
+    background-position: 100% 0;
   }
-
-  40% {
-    --colorAA: #ff3c41;
-    --colorBB: #e228a0;
-    --colorCC: #2e4c96;
-  }
-
-  60% {
-    --colorAA: orange;
-    --colorBB: green;
-    --colorCC: teal;
-  }
-
-  80% {
-    --colorAA: #ae63e4;
-    --colorBB: #0ebeff;
-    --colorCC: #efc371;
+  100% {
+    background-position: -200% 0;
   }
 }
 
@@ -49,14 +14,29 @@
   padding: 20px;
   font-family: 'Syncopate', sans-serif;
   text-transform: uppercase;
-  background: radial-gradient(
-      circle farthest-corner at center center,
-      var(--colorAA),
-      var(--colorBB, var(--colorCC))
-    )
-    no-repeat;
-  animation: change 5s infinite;
-  transition: 1s --colorAA, 1s --colorBB, 1s --colorCC;
+  background-color: #9aa8b3;
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 6rem,
+    white 11rem,
+    transparent 11.15rem,
+    transparent 15rem,
+    rgba(255, 255, 255, 0.3) 20rem,
+    transparent 25rem,
+    transparent 27rem,
+    rgba(255, 255, 255, 0.6) 32rem,
+    white 33rem,
+    rgba(255, 255, 255, 0.3) 33.15rem,
+    transparent 38rem,
+    transparent 40rem,
+    rgba(255, 255, 255, 0.3) 45rem,
+    transparent 50rem,
+    transparent 100%
+  );
+  background-size: 150% 100%;
+  background-repeat: repeat-x;
+  animation: shine 5s infinite linear;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

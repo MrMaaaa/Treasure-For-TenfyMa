@@ -1,4 +1,6 @@
 (() => {
+  const colorFrom = '#000';
+  const colorTo = '#222';
   const dom_current = document.createElement('div');
   dom_current.setAttribute('id', 'current');
   const dom_rect = document.createElement('div');
@@ -29,7 +31,7 @@
     #rect {
       width: 4px;
       height: 40px;
-      background: #000;
+      background: #fff;
       position: fixed;
       top: 35px;
       left: 80px;
@@ -79,9 +81,9 @@
     const bgper = ($scrollTop.scrollTop / scrollHeight) * 100;
 
     // 设置背景渐变
-    document.body.style.background = `linear-gradient(to right, #f7f7f7, #f7f7f7 ${bgper}%, #fff ${bgper}%)`; // 线性渐变
-    // document.body.style.background = `repeating-linear-gradient(45deg, #ddd, #fff ${bgper * 0.1 + 5}%)` // 方格逐渐变大效果
-    // document.body.style.background = `radial-gradient(circle at 85px 55px, #f7f7f7, #f7f7f7 ${bgper}%, #fff ${bgper}%)` // 圆形从右侧扩大
+    document.body.style.background = `linear-gradient(to right, ${colorFrom}, ${colorFrom} ${bgper}%, ${colorTo} ${bgper}%)`; // 线性渐变
+    // document.body.style.background = `repeating-linear-gradient(45deg, ${colorFrom}, ${colorTo} ${bgper * 0.01 + 2}%)` // 方格逐渐变大效果
+    // document.body.style.background = `radial-gradient(circle at 85px 55px, ${colorFrom}, ${colorFrom} ${bgper}%, ${colorTo} ${bgper}%)` // 圆形从右侧扩大
 
     // 计算页码 dom 滚动距离
     const per = ($scrollTop.scrollTop / $scrollTop.scrollHeight) * 100;

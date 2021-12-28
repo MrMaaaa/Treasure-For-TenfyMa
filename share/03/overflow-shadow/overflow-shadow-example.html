@@ -7,9 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>overflow-shadow</title>
   <link rel="stylesheet" href="../../reset.css" />
+  <link rel="stylesheet" href="../../common.css" />
   <style>
-    * {
-      box-sizing: border-box;
+    body {
+      background: transparent;
     }
 
     .container {
@@ -24,6 +25,7 @@
     .g-table {
       width: 450px;
       background: #fff;
+      color: #000;
     }
 
     table {
@@ -71,19 +73,18 @@
     }
 
     .list-horizontal-wrapper {
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
       margin-left: 100px;
       background: #fff;
+      color: #000;
     }
 
-    .list-horizontal::before {
-      content: '千字文';
-      position: absolute;
-      top: 50%;
-      right: 100%;
-      transform: translateY(-50%);
+    .list-horizontal-wrapper-title {
       writing-mode: tb;
       padding: 0 15px;
+      text-align: center;
     }
 
     .list-horizontal li {
@@ -157,6 +158,7 @@
     </div>
 
     <div class="list-horizontal-wrapper">
+      <span class="list-horizontal-wrapper-title">千字文</span>
       <ol class="list-horizontal">
         <li><span>天地玄黄，宇宙洪荒。</span><span>日月盈昃，辰宿列张。</span></li>
         <li><span>寒来暑往，秋收冬藏。</span><span>闰余成岁，律吕调阳。</span></li>
