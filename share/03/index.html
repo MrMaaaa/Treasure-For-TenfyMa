@@ -52,13 +52,16 @@
       <display-value />
     </div>
     <div class="scroll-view-item align-center">
-      test
+      <css-property />
     </div>
     <div class="scroll-view-item align-center">
-      test
+      <chrome-devtool />
     </div>
     <div class="scroll-view-item align-center">
-      test
+      <overflow-hidden />
+    </div>
+    <div class="scroll-view-item align-center">
+      <overflow-shadow />
     </div>
   </div>
 
@@ -67,7 +70,11 @@
   <div id="total"></div>
 
   <script src="./pos-shower.js"></script>
-  <script src="./display-value.js"></script>
+  <script src="./display-value/index.js"></script>
+  <script src="./css-property/index.js"></script>
+  <script src="./chrome-devtool/index.js"></script>
+  <script src="./overflow-hidden/index.js"></script>
+  <script src="./overflow-shadow/index.js"></script>
   <script>
     const $scrollTop = document.querySelector('.scroll-view')
     const pageLen = document.querySelectorAll('.scroll-view > .scroll-view-item').length

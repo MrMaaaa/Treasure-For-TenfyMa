@@ -9,10 +9,10 @@
     </div>
     <div class="scroll-view-item align-center">
       <h3><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display/two-value_syntax_of_display" target="_blank">mdn的描述</a>：</h3>
-      <img style="display: block; width: 50%;" src="./display-value.png" />
+      <img style="display: block; width: 50%;" src="./display-value/display-value.png" />
     </div>
     <div class="scroll-view-item align-center">
-      <img style="display: block; width: 50%;" src="./display-value-example.png" />
+      <img style="display: block; width: 50%;" src="./display-value/display-value-example.png" />
     </div>
     <div class="scroll-view-item align-center">
       <h3>最后再分享几个新的display属性</h3>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>css property</title>
+  <style>
+    :root {
+      --colorA: #fff;
+      --colorB: #000;
+    }
+    .linear-transition {
+      background: linear-gradient(45deg, var(--colorA), var(--colorB));
+      transition: background 1s;
+    }
+    .linear-transition:hover {
+      --colorA: yellowgreen;
+      --colorB: deeppink;
+    }
+    @property --houdini-colorA {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #fff;
+    }
+    @property --houdini-colorB {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #000;
+    }
+    .linear-property {
+      background: linear-gradient(45deg, var(--houdini-colorA), var(--houdini-colorB));
+      transition: 1s --houdini-colorA, 1s --houdini-colorB;
+    }
+    .linear-property:hover {
+      --houdini-colorA: yellowgreen;
+      --houdini-colorB: deeppink;
+    }
+    @property --colorAA {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: fuchsia;
+    }
+    @property --colorBB {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #f79188;
+    }
+    @property --colorCC {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: red;
+    }
+    @keyframes change {
+      20% {
+          --colorAA: red;
+          --colorBB: #a93ee0;
+          --colorCC: fuchsia;
+      }
+      40% {
+          --colorAA: #ff3c41;
+          --colorBB: #e228a0;
+          --colorCC: #2e4c96;
+      }
+      60% {
+          --colorAA: orange;
+          --colorBB: green;
+          --colorCC: teal;
+      }
+      80% {
+          --colorAA: #ae63e4;
+          --colorBB: #0ebeff;
+          --colorCC: #efc371;
+      }
+    }
+    .linear-animation {
+      background: linear-gradient(45deg,
+        var(--colorAA),
+        var(--colorBB),
+        var(--colorCC));
+      animation: change 10s infinite linear;
+      transition: 1s --colorAA, 1s --colorBB, 1s --colorCC;
+    }
+    .linear {
+      width: 50%;
+      height: 150px;
+      margin: 30px auto 0;
+    }
+    .btn-add {
+      display: block;
+      appearance: none;
+      border: 0;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .link {
+      display: block;
+      text-align: center;
+      color: #1890ff;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="https://github.com/chokcoco/iCSS/issues/109" target="_blank" class="link">更多教程及用法</a>
+  <div class="linear linear-transition"></div>
+  <div class="linear linear-property"></div>
+  <button class="btn-add linear" id="btn_add" onclick="append()">这里是一个循环渐变的演示</button>
+  <script>
+    const append = () => {
+      const elem = document.createElement('div')
+      elem.setAttribute('class', 'linear linear-animation')
+      const btn = document.getElementById('btn_add')
+      document.body.insertBefore(elem, btn)
+      btn.style = 'display: none;'
+    }
+  </script>
+</body>
+
+</html>
