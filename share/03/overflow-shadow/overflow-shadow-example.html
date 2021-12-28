@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>overflow-shadow</title>
+  <link rel="stylesheet" href="../../reset.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      font-size: 24px;
+    }
+
+    .g-table {
+      width: 450px;
+      background: #fff;
+    }
+
+    table {
+      position: relative;
+      width: 100%;
+      text-align: center;
+    }
+
+    table tbody {
+      border-collapse: separate;
+      height: 200px;
+    }
+
+    table td,
+    table th {
+      width: 150px;
+      padding: 5px;
+    }
+
+    .g-scroll {
+      top: -1px;
+      position: relative;
+      height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background:
+        linear-gradient(#fff, transparent) top / 100% 100px,
+        radial-gradient(at 50% -15px, rgba(0, 0, 0, .8), transparent 70%) top / 100000% 12px;
+      background-repeat: no-repeat;
+      background-attachment: local, scroll;
+    }
+
+    .list-horizontal {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 300px;
+      height: 200px;
+      overflow-x: scroll;
+      background:
+        linear-gradient(to right, #fff, transparent) left / 30px 100%,
+        radial-gradient(at -30px 50%, rgba(0, 0, 0, 1), transparent 70%) left / 10px 100000%;
+      background-repeat: no-repeat;
+      background-attachment: local, scroll;
+    }
+
+    .list-horizontal-wrapper {
+      position: relative;
+      margin-left: 100px;
+    }
+
+    .list-horizontal::before {
+      content: '千字文';
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      transform: translateY(-50%);
+      writing-mode: tb;
+      padding: 0 15px;
+    }
+
+    .list-horizontal li {
+      list-style-type: none;
+      flex: none;
+      padding: 0 15px;
+    }
+
+    .list-horizontal li span {
+      display: block;
+    }
+
+    .list-horizontal li span:not(:first-of-type) {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="g-table">
+      <table>
+        <thead>
+          <tr>
+            <th>千字文</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="g-scroll">
+        <table>
+          <tbody>
+            <tr>
+              <td>天地玄黄，宇宙洪荒。</td>
+            </tr>
+            <tr>
+              <td>日月盈昃，辰宿列张。</td>
+            </tr>
+            <tr>
+              <td>寒来暑往，秋收冬藏。</td>
+            </tr>
+            <tr>
+              <td>闰余成岁，律吕调阳。</td>
+            </tr>
+            <tr>
+              <td>云腾致雨，露结为霜。</td>
+            </tr>
+            <tr>
+              <td>金生丽水，玉出昆冈。</td>
+            </tr>
+            <tr>
+              <td>剑号巨阙，珠称夜光。</td>
+            </tr>
+            <tr>
+              <td>果珍李柰，菜重芥姜。</td>
+            </tr>
+            <tr>
+              <td>海咸河淡，鳞潜羽翔。</td>
+            </tr>
+            <tr>
+              <td>龙师火帝，鸟官人皇。</td>
+            </tr>
+            <tr>
+              <td>始制文字，乃服衣裳。</td>
+            </tr>
+            <tr>
+              <td>推位让国，有虞陶唐。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="list-horizontal-wrapper">
+      <ol class="list-horizontal">
+        <li><span>天地玄黄，宇宙洪荒。</span><span>日月盈昃，辰宿列张。</span></li>
+        <li><span>寒来暑往，秋收冬藏。</span><span>闰余成岁，律吕调阳。</span></li>
+        <li><span>闰余成岁，律吕调阳。</span><span>云腾致雨，露结为霜。</span></li>
+        <li><span>金生丽水，玉出昆冈。</span><span>剑号巨阙，珠称夜光。</span></li>
+        <li><span>果珍李柰，菜重芥姜。</span><span>海咸河淡，鳞潜羽翔。</span></li>
+        <li><span>龙师火帝，鸟官人皇。</span><span>始制文字，乃服衣裳。</span></li>
+      </ol>
+    </div>
+  </div>
+</body>
+
+</html>
