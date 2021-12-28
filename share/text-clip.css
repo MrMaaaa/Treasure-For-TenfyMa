@@ -40,3 +40,42 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.text-clip-wave {
+  position: relative;
+  display: inline-block;
+  font-size: 60px;
+  font-weight: bold;
+  color: #fff;
+  overflow: hidden;
+}
+
+.text-clip-wave::before,
+.text-clip-wave::after {
+  content: '';
+  position: absolute;
+  top: -963px;
+  left: 50%;
+  width: 2000px;
+  height: 2000px;
+  border-radius: 45% 48% 43% 47%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  animation: rotate 10s infinite linear;
+  z-index: 1;
+  mix-blend-mode: difference;
+}
+
+.text-clip-wave::after {
+  border-radius: 43% 47% 44% 48%;
+  animation: rotate 10s infinite 0.5s linear;
+}
