@@ -8,8 +8,8 @@
       height: 100%;
       overflow: hidden;
       color: #fff;
-      text-shadow: 0 1px 20px #000;
-      font-size: 20px;
+      text-shadow: 2px 2px 4px #000;
+      font-size: 24px;
       transform: translateX(30%);
     }
     .box {
