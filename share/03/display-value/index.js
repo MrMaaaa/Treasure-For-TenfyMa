@@ -18,7 +18,7 @@
       <h3>最后再分享几个新的display属性</h3>
       <ul>
         <li>contents: 将设置了该值的元素从可访问性树(accessibility tree)中移除，但保留其子代元素。这会导致该元素自身不再被屏幕阅读技术(screen reading technology)访问。这在 CSS 规范中被视为不正确的行为。</li>
-        <li>flow-root: 该值的唯一目的是创建一个新的块格式上下文(BFC)。</li>
+        <li>flow-root: 使用 display: flow-root （或 display: flow-root list-item）将创建一个新的BFC，而不会产生任何其他潜在的问题副作用。</li>
       </ul>
     </div>
   </div>

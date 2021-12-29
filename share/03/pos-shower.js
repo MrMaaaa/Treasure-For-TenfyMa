@@ -68,6 +68,7 @@
   <link rel="stylesheet" href="../common.css" />
   <div class="scroll-view-v6l">
     <div class="scroll-view-item align-center">
+      <h3>7阶层叠水平（stacking level)</h3>
       <div class="box-wrapper">
         <div class="box box-zindex-less-0">z-index < 0</div>
         <div class="box box-block">display: block;</div>
@@ -97,7 +98,7 @@
           <li>clip-path</li>
         </ul>
         <li>mask / mask-image / mask-border</li>
-        <li>isolation 属性值为 isolate 的元素；</li>
+        <li>isolation 属性值为 isolate 的元素；注：这个属性的作用就是为了生成一个stacking context（堆叠上下文）</li>
         <li>-webkit-overflow-scrolling 属性值为 touch 的元素；</li>
         <li>will-change 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考这篇文章）；</li>
         <li>contain 属性值为 layout、paint 或包含它们其中之一的合成值（比如 contain: strict、contain: content）的元素。</li>
