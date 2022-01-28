@@ -38,6 +38,7 @@
   background-repeat: repeat-x;
   animation: shine 5s infinite linear;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -56,7 +57,6 @@
   font-size: 60px;
   font-weight: bold;
   color: #fff;
-  overflow: hidden;
 }
 
 .text-clip-wave::before,
