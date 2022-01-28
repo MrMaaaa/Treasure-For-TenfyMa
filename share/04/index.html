@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../common.css" />
+  <link rel="stylesheet" href="../reset.css" />
+  <title>分享</title>
+</head>
+
+<body>
+  <div class="scroll-view">
+    <div class="scroll-view-item align-center">
+      <h1 class="text-clip">人类高质量分享</h1>
+      <h1 class="text-clip">之</h1>
+      <h1 class="text-clip">React架构的演变</h1>
+      <h2 class="text-clip-wave" style="font-size: 60px; margin-top: 50px; color: #fff;">分享人: 秋筠（马腾飞）</h2>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>React的理念</h1>
+      <br />
+      <h4>我们认为，React 是用 JavaScript 构建<b style="color: lightgoldenrodyellow;">快速响应</b>的大型 Web 应用程序的首选方式。它在 Facebook 和
+        Instagram 上表现优秀。</h4>
+      <br />
+      <p style="align-self: flex-end;">——React 官网</p>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>制约「快速响应」的因素</h1>
+      <br />
+      <h4>当遇到大计算量的操作或者设备性能不足使页面掉帧，导致卡顿。</h4>
+      <br />
+      <p style="align-self: flex-end;">——CPU/GPU瓶颈</p>
+      <br />
+      <h4>发送网络请求后，由于需要等待数据返回才能进一步操作导致不能快速响应。</h4>
+      <br />
+      <p style="align-self: flex-end;">——IO瓶颈</p>
+    </div>
+    <div class="scroll-view-item align-center">
+      <a target="_blank" href="https://3h48s.csb.app/">我们有个更新很耗时的大列表，让我们看看同步更新和异步更新时，输入框的响应速度</a>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>React15架构可以分为两层: </h1>
+      <br />
+      <div>
+        <h3>Reconciler（协调器）—— 负责找出变化的组件</h3>
+        <ul style="padding-left: 100px;">
+          <li>调用函数组件、或class组件的render方法，将返回的JSX转化为虚拟DOM</li>
+          <li>将虚拟DOM和上次更新时的虚拟DOM对比</li>
+          <li>通过对比找出本次更新中变化的虚拟DOM</li>
+          <li>通知Renderer将变化的虚拟DOM渲染到页面上</li>
+        </ul>
+        <br />
+        <h3>Renderer（渲染器）—— 负责将变化的组件渲染到页面上</h3>
+      </div>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>问题</h1>
+      <br />
+      <h3>在Reconciler中，mount的组件会调用mountComponent，update的组件会调用updateComponent。这两个方法都会递归更新子组件。</h3>
+      <h3>由于递归执行，所以更新一旦开始，中途就无法中断。当层级很深时，递归更新时间超过了16ms，用户交互就会卡顿。</h3>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>React16架构可以分为三层: </h1>
+      <br />
+      <ul style="padding-left: 100px;">
+        <li>Scheduler（调度器）—— 调度任务的优先级，高优任务优先进入Reconciler</li>
+        <li>Reconciler（协调器）—— 负责找出变化的组件</li>
+        <li>Renderer（渲染器）—— 负责将变化的组件渲染到页面上</li>
+      </ul>
+    </div>
+    <div class="scroll-view-item align-center">
+    </div>
+  </div>
+
+  <script src="../page-progress.js"></script>
+</body>
+
+</html>
