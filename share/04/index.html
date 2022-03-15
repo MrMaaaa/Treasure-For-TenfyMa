@@ -19,10 +19,33 @@
       <h2 class="text-clip-wave" style="font-size: 60px; margin-top: 50px; color: #fff;">分享人: 秋筠（马腾飞）</h2>
     </div>
     <div class="scroll-view-item align-center">
+      <div class="scroll-view-v6l">
+        <div class="scroll-view-item align-center">
+          <h1>我们先介绍一些scroll相关的css属性</h1>
+        </div>
+        <div class="scroll-view-item align-center">
+          <h1>1. <a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scroll-behavior">scroll-behavior</a></h1>
+          <h3>设置为scroll-behavior: smooth;可以让元素滚动时具有缓动效果</h3>
+        </div>
+        <div class="scroll-view-item align-center">
+          <h1>2. <a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/overscroll-behavior">overscroll-behavior</a></h1>
+          <div>
+            <h3>contain: 默认的滚动边界行为不变（“触底”效果或者刷新），但是临近的滚动区域不会被滚动链影响到</h3>
+            <h3>none: 临近滚动区域不受到滚动链影响，而且默认的滚动到边界的表现也被阻止</h3>
+            <h3>效果见<a target="_blank" href="https://www.zhangxinxu.com/study/202001/css-overscroll-behavior-demo.php">这里</a></h3>
+          </div>
+        </div>
+        <div class="scroll-view-item align-center">
+          <h1>3. <a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/overflow-anchor">overflow-anchor</a></h1>
+          <h3>设置为auto可以避免异步加载的dom在滚动后出现导致当前视口内容被填充</h3>
+          <h3>效果见<a target="_blank" href="https://www.zhangxinxu.com/wordpress/2020/08/css-overflow-anchor/">这里</a></h3>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-view-item align-center">
       <h1>React的理念</h1>
       <br />
-      <h4>我们认为，React 是用 JavaScript 构建<b style="color: lightgoldenrodyellow;">快速响应</b>的大型 Web 应用程序的首选方式。它在 Facebook 和
-        Instagram 上表现优秀。</h4>
+      <h4>我们认为，React 是用 JavaScript 构建<b style="color: lightgoldenrodyellow;">快速响应</b>的大型 Web 应用程序的首选方式。它在 Facebook 和 Instagram 上表现优秀。</h4>
       <br />
       <p style="align-self: flex-end;">——React 官网</p>
     </div>
@@ -38,10 +61,7 @@
       <p style="align-self: flex-end;">——IO瓶颈</p>
     </div>
     <div class="scroll-view-item align-center">
-      <a target="_blank" href="https://3h48s.csb.app/">我们有个更新很耗时的大列表，让我们看看同步更新和异步更新时，输入框的响应速度</a>
-    </div>
-    <div class="scroll-view-item align-center">
-      <h1>React15架构可以分为两层: </h1>
+      <h1>React15架构（Stack Reconciler）可以分为两层: </h1>
       <br />
       <div>
         <h3>Reconciler（协调器）—— 负责找出变化的组件</h3>
@@ -56,13 +76,24 @@
       </div>
     </div>
     <div class="scroll-view-item align-center">
-      <h1>问题</h1>
+      <h1>为什么叫Stack Reconciler</h1>
       <br />
-      <h3>在Reconciler中，mount的组件会调用mountComponent，update的组件会调用updateComponent。这两个方法都会递归更新子组件。</h3>
-      <h3>由于递归执行，所以更新一旦开始，中途就无法中断。当层级很深时，递归更新时间超过了16ms，用户交互就会卡顿。</h3>
+      <h3>:因为这里的 Diffing 过程是递归 (recursive) 的。大家都知道我们使用递归都需要注意的一个风险 - 栈溢出 (stack overflow) 。为什么会发生栈溢出，因为递归调用，外层的栈是不会弹出的（尾递归除外）。当然这里的问题其实跟栈溢出没什么关系，重点在于栈被一直占用了。而我们知道，JavaScript 运行环境只有一个 call stack，，一旦 vDOM 嵌套层次很深，页面就会出现比较严重的卡顿。</h3>
     </div>
     <div class="scroll-view-item align-center">
-      <h1>React16架构可以分为三层: </h1>
+      <h1>何解</h1>
+      <br>
+      <h3>HTTP/2 为了解决 HTTP/1.1 中存在的线头阻塞问题，将 HTTP 报文拆分成一个个二进制帧，这些帧在管道中没有先后顺序，因此就不会产生阻塞。</h3>
+      <h3>类似的，我们也可以将大量的更新任务 (Batch update task) 拆分成一个个小的 task，从而让 event loop 有机会处理用户交互的 callback。</h3>
+      <br />
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>于是，React Fiber 应运而生了。</h1>
+      <br />
+      <h5>具体可以参考<a href="https://zhuanlan.zhihu.com/p/109971435" target="_blank" rel="noreferrer">这篇文章</a></h3>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>React16架构（Fiber Reconciler）可以分为三层: </h1>
       <br />
       <ul style="padding-left: 100px;">
         <li>Scheduler（调度器）—— 调度任务的优先级，高优任务优先进入Reconciler</li>
@@ -71,6 +102,34 @@
       </ul>
     </div>
     <div class="scroll-view-item align-center">
+      <h3>简单来说，react 将递归改成循环 (while loop)，同时在每次循环结束做过期（expire) 判断，如果过期就标记下当前的位置，break 出来，让 main thread 有机会完成高优先级的 work。</h3>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h3>显然，仅仅这些并不足以花费大量时间进行重构。</h3>
+      <br />
+      <h3>Concurrent Mode 才是架构重写的源动力，也是 React 未来的发展方向。</h3>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h3>这里有个很好的例子来解释为什么需要异步更新</h3>
+      <br />
+      <a target="_blank" href="https://3h48s.csb.app/">同步更新和异步更新对于输入框的响应速度的影响</a>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h3>由于尚处于试验阶段<span style="text-decoration: line-through;">（篇幅限制）</span>，这里不展开讲，只给出一些关键词</h3>
+      <br />
+      <h1>requestIdleCallback、Suspense、react-cache、useTransition、useDeferredValue</h1>
+    </div>
+    <div class="scroll-view-item align-center">
+      <h1>完</h1>
+      <br />
+      <div style="align-self: flex-start;padding-left: 20%;">
+        <h3 >Ref:</h3>
+        <ol>
+          <li><a href="https://www.teqng.com/2021/11/10/%E4%BB%80%E4%B9%88%E6%98%AF-react-concurrent-mode%EF%BC%9F%E3%80%90react%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F%EF%BC%81%EF%BC%81%EF%BC%81%E3%80%91/#21_React16_zhi_qian_de_jia_gou" target="_blank" rel="noreferrer">什么是-react-concurrent-mode？【react架构的前世今生！！！】</a></li>
+          <li><a href="https://developpaper.com/the-evolution-of-react-architecture-from-synchronous-to-asynchronous/" target="_blank" rel="noreferrer">react架构的演进——从同步到异步</a></li>
+          <li><a href="https://zhuanlan.zhihu.com/p/109971435" target="_blank" rel="noreferrer">理解 React Fiber & Concurrent Mode</a></li>
+        </ol>
+      </div>
     </div>
   </div>
 

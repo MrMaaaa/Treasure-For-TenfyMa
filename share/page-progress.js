@@ -21,7 +21,9 @@
       top: 30px;
       left: 30px;
       font-size: 36px;
+      line-height: initial;
       overflow: scroll;
+      text-align: right;
     }
 
     #current::-webkit-scrollbar {
@@ -34,14 +36,16 @@
       background: #fff;
       position: fixed;
       top: 35px;
-      left: 80px;
+      left: 100px;
+      line-height: initial;
     }
 
     #total {
       position: fixed;
       top: 30px;
-      left: 120px;
+      left: 130px;
       font-size: 36px;
+      line-height: initial;
     }`;
 
   document.head.appendChild(cssStyle);
