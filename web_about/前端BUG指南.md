@@ -558,3 +558,5 @@
 58. **antd 3.x Tabs.Panel组件不要设置overflow: 非visble的属性，会导致显示空白，原因是设置了margin-left: 100%和overflow冲突，解决方法，设置animated={false}禁用动画即可**
 
 59. **safari 14.x出现的一个问题：不能给设置了flex的子元素设置height: 100% 会导致元素高度为实际高度而不是父元素高度（tips：设置alignItems: 'stretch'即可替代height： 100%的效果）**
+
+60. **pointer-events: none; 可以禁止 mouse enter 事件触发。如果需要只对父元素触发该事件而不想让子元素也响应，可以给子元素增加该属性。**
